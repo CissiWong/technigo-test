@@ -1,16 +1,25 @@
 import React  from 'react'
+import "./style.css"
+
+//components
+//import Job from "components/job"
+import Grid from "lib/grid"
 
 
 class Start extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            jobs: []
-        }
-    }
+
     render () {
+        const regex = /(&nbsp;|<([^>]+)>)/ig
+        const result = this.props.text.replace(regex, " ");
         return (
-            <div>Jobs</div>
+            <Grid>
+                <div>
+                    <p>{this.props.name}</p>
+                    <p>{this.props.type}</p>
+                    <p>{this.props.title}</p>
+                    <p>{result}</p>
+                </div>
+            </Grid>
         )
     }
 }
