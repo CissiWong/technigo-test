@@ -1,55 +1,25 @@
 import React, { Component } from 'react'
 import './style.css'
+import { BrowserRouter, Route, Switch } from "react-router-dom"
 
 //components
-import Start from "components/start"
+import Job from "components/job"
 
-class App extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: [],
-            name: ""
-        }
+//views
+import StartView from "views/startView"
+
+
+export default class App extends Component {
+    render () {
+        return (
+        <BrowserRouter>
+              <div className="container">
+                <Switch>
+                  <Route path="/" exact component={StartView} />
+                  <Route path="/jobs/:id" exact component={Job} /> */}
+                </Switch>
+              </div>
+        </BrowserRouter>
+        )
     }
-
-    componentDidMount() {
-        fetch("https://api.teamtailor.com/v1/jobs/", {
-          method: "GET",
-          headers: ({
-          Accept: "application/vnd.api+json",
-          "Content-Type": "application/json",
-          "X-Api-Version": 20161108,
-          Authorization: "Token ci4U-k0GCxLNZhWFLiI74XOVJXEzD_iRuLozdh2H",
-        }),
-          body: JSON.stringify()
-        }).then(response =>
-            {response.json().then(response => {
-            this.setState({
-              data: response.data,
-              name: response.data[0].attributes.name
-            })
-        })
-    })
 }
-
-
-
-  render() {
-      return (
-        <div className="App">
-            {this.state.data.map(item => {
-                return <Start
-                    key={item.id}
-                    name={item.attributes.name}
-                    type={item.type}
-                    text={item.attributes.body}
-                    title={item.attributes.title}
-                 />
-            })}
-        </div>
-    )}
-}
-
-
-export default App;
